@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: report-form
+    image: report-form
+    build: ./backend
+    ports:
+      - "8002:8002"
+#     depends_on:
+#       - db
+
+#   db:
+#     container_name: report-form-postgres
+#     image: postgres
+#     ports:
+#       - "5432:5432"
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: mypassword
+#       PGDATA: /data/postgres
+#     volumes:
+#        - postgres:/data/postgres
+
+# volumes:
+#     postgres:
