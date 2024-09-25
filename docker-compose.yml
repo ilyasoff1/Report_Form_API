@@ -10,6 +10,15 @@ services:
 #     depends_on:
 #       - db
 
+  react:
+    container_name: report-form-web
+    build: ./frontend
+    ports:
+     - 5173:5173
+    # volumes:
+    #  - ./app/src:/app/src
+
+
 #   db:
 #     container_name: report-form-postgres
 #     image: postgres
