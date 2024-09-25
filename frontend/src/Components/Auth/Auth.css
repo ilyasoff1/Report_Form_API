@@ -1,0 +1,22 @@
+.auth {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 70%;
+}
+
+.auth form {
+	padding-top: 25px;
+}
+
+.auth form div {
+	display: flex;
+	flex-direction: column;
+	margin: 0 0 20px 0;
+}
+
+.auth form label {
+	color: #e6edf1;
+	margin: 0 0 10px 10px;
+}

@@ -1,0 +1,29 @@
+footer {
+	width: 100%;
+	bottom: 25px;
+	left: 0;
+	display: flex;
+	color: #fff;
+	align-items: center;
+	position: absolute;
+}
+
+hr {
+	opacity: 0.25;
+}
+
+footer p {
+	margin: 0 3%;
+}
+
+footer p svg {
+	margin-right: 5px;
+}
+
+footer hr.first {
+	width: 3%;
+}
+
+footer hr.second {
+	width: 76.4%;
+}
