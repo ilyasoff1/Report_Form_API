@@ -52,7 +52,7 @@ def detail_profile(request, pk):
 
 @api_view(['DELETE'])
 def delete_profile(request, pk):
-	profile = Profile.objects.filter(id=pk).first()
+	profile = Profile.objects.get(id=pk)
 
 	if profile:
 		profile.delete()
