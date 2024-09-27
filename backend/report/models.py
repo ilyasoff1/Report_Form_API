@@ -1,9 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
+from django.conf import settings
+from django.db import models
+
 
 
 class Report(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     department = models.CharField(max_length=50, null=True)
     location = models.CharField(max_length=50, null=True)
     report_type = models.CharField( max_length=50, null=True)

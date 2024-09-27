@@ -13,7 +13,7 @@ def list_reports(request):
 		serializer = ReportSerializer(reports, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
-	return Response({"detail": "No reports found."}, status=HTTP_404_NOT_FOUND)
+	return Response({"detail": "No reports found"}, status=HTTP_404_NOT_FOUND)
 
 
 @api_view(['POST'])
@@ -56,8 +56,8 @@ def delete_report(request, pk):
 
 	if report:  
 		report.delete()
-		return Response({'detail': 'Report has been deleted successfully.'}, status=status.HTTP_204_NO_CONTENT)
+		return Response({'detail': 'Report has been deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
-	return Response({'detail': 'Report not found.'}, status=status.HTTP_404_NOT_FOUND)
+	return Response({'detail': 'Report not found'}, status=status.HTTP_404_NOT_FOUND)
 
 	
