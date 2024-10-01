@@ -7,27 +7,13 @@ from .serializers import ReportSerializer
 
 @api_view(['GET'])
 def list_reports(request):
-	if request.user.is_staff:
-		reports = Report.objects.all()
-
-		if reports:
-			serializer = ReportSerializer(reports, many=True)
-			return Response(serializer.data, status=status.HTTP_200_OK)
-
-		return Response({"detail": "No reports found"}, status=status.HTTP_404_NOT_FOUND)
-
-	return Response({"detail": "Forbidden"}, status=status.HTTP_403_FORBIDDEN)
-
-
-@api_view(['GET'])
-def list_my_reports(request):
 	reports = Report.objects.filter(user=request.user)
 
-	if reports:
+	if reports.exists():
 		serializer = ReportSerializer(reports, many=True)
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
-	return Response({"detail": "No reports found"}, status=status.HTTP_404_NOT_FOUND)
+	return Response({"detail": "No reports found"}, status=HTTP_404_NOT_FOUND)
 
 
 @api_view(['POST'])
@@ -43,47 +29,35 @@ def create_report(request):
 
 @api_view(['PUT'])
 def update_report(request, pk):
-	try:
-		if request.user.is_staff:
-			report = Report.objects.get(id=pk)
-		else:
-			report = Report.objects.get(id=pk, user=request.user)
+	report = Report.objects.get(id=pk, user=request.user)
+	serializer = ReportSerializer(instance=report, data=request.data)
 
-		serializer = ReportSerializer(instance=report, data=request.data)
+	if serializer.is_valid():
+		serializer.save()
+		return Response(serializer.data, status=status.HTTP_200_OK)
 
-		if serializer.is_valid():
-			serializer.save()
-
-			return Response(serializer.data, status=status.HTTP_200_OK)
-	except Report.DoesNotExist:
-
-		return Response({"detail": "Report not found or you don't have permission"}, status=status.HTTP_404_NOT_FOUND)
+	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
 def detail_report(request, pk):
-	try:
-		if request.user.is_staff:
-			report = Report.objects.get(id=pk)
-		else:
-			report = Report.objects.get(id=pk, user=request.user)
+	report = Report.objects.filter(id=pk, user=request.user).first()
 
+	if report:
 		serializer = ReportSerializer(report)
-
 		return Response(serializer.data, status=status.HTTP_200_OK)
-	except Report.DoesNotExist:
 		
-		return Response({'detail': 'Report not found'}, status=status.HTTP_404_NOT_FOUND)
+	return Response({'detail': 'Report not found'}, status=status.HTTP_404_NOT_FOUND)
 	
 
-# @api_view(['DELETE'])
-# def delete_report(request, pk):
-# 	report = Report.objects.filter(id=pk, user=request.user).first()
+@api_view(['DELETE'])
+def delete_report(request, pk):
+	report = Report.objects.filter(id=pk, user=request.user).first()
 
-# 	if report:  
-# 		report.delete()
-# 		return Response({'detail': 'Report has been deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+	if report:  
+		report.delete()
+		return Response({'detail': 'Report has been deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
-# 	return Response({'detail': 'Report not found'}, status=status.HTTP_404_NOT_FOUND)
+	return Response({'detail': 'Report not found'}, status=status.HTTP_404_NOT_FOUND)
 
 	
