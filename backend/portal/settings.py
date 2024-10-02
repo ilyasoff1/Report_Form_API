@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     #global
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_yasg',
 
     #local
     'report',

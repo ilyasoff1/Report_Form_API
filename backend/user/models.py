@@ -9,8 +9,10 @@ class Profile(AbstractUser):
     def __str__(self):
         return self.username
 
+    def save(self, *args, **kwargs):
+        # Check if this is a new instance
+        if self.pk is None and self.password:
+            self.set_password(self.password) 
 
-    # def save(self, *args, **kwargs):
-    #     self.set_password(self.password) 
-    #     super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
 

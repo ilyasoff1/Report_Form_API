@@ -50,14 +50,14 @@ def detail_report(request, pk):
 	return Response({'detail': 'Report not found'}, status=status.HTTP_404_NOT_FOUND)
 	
 
-@api_view(['DELETE'])
-def delete_report(request, pk):
-	report = Report.objects.filter(id=pk, user=request.user).first()
+# @api_view(['DELETE'])
+# def delete_report(request, pk):
+# 	report = Report.objects.filter(id=pk, user=request.user).first()
 
-	if report:  
-		report.delete()
-		return Response({'detail': 'Report has been deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+# 	if report:  
+# 		report.delete()
+# 		return Response({'detail': 'Report has been deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
-	return Response({'detail': 'Report not found'}, status=status.HTTP_404_NOT_FOUND)
+# 	return Response({'detail': 'Report not found'}, status=status.HTTP_404_NOT_FOUND)
 
 	
