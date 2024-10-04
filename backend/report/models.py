@@ -6,13 +6,13 @@ from django.db import models
 
 
 class Report(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user")
     department = models.CharField(max_length=50, null=True)
     location = models.CharField(max_length=50, null=True)
     report_type = models.CharField( max_length=50, null=True)
     contact = models.CharField(max_length=9)
     user_comment = models.TextField(max_length=150, blank=True, null=True)
-    admin = models.CharField(max_length=50, blank=True, null=True)
+    admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, related_name='admin', blank=True, null=True)
     admin_comment = models.TextField(max_length=250, blank=True, null=True)
 
     status_options = (

@@ -4,4 +4,8 @@ from django.contrib.auth.admin import UserAdmin
 
 @admin.register(Profile)
 class ProfileAdmin(UserAdmin):
-    pass
+    fieldsets = UserAdmin.fieldsets + (
+        ('Custom Fields', {
+            'fields': ('contact', 'department')
+        }),
+    )

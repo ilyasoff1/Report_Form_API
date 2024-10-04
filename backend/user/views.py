@@ -21,13 +21,15 @@ def create_profile(request):
 	serializer = ProfileSerializer(data=request.data)
 
 	if serializer.is_valid():
-		serializer.save()
+		password = serializer.validated_data.pop("password")
+		profile = serializer.save()
+
+		profile.set_password(password)
+		profile.save()
+
 		return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
 
 
 @api_view(['PUT'])
@@ -38,8 +40,10 @@ def update_profile(request, pk):
 	if serializer.is_valid():
 		password = serializer.validated_data.pop("password")
 		serializer.save()
+
 		profile.set_password(password)
-		
+		profile.save()
+
 		return Response(serializer.data, status=status.HTTP_200_OK)
 
 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
